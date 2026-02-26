@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BackendLibrary/BackendLibrary.csproj" />
+  <Project Path="Frontend/Frontend.csproj" />
+</Solution>
