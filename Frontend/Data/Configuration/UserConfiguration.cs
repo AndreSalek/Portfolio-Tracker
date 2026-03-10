@@ -1,27 +1,18 @@
-﻿using Frontend.Models;
+﻿using Frontend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Frontend.Data.Configuration
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-     
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("Users");
 
-            builder.HasKey(a => a.Id);
-            builder.Property(a => a.Id)
-            .ValueGeneratedOnAdd();
-
-            builder.Property(a => a.Username)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
-            builder.Property(a => a.Password)
-                    .IsRequired()
-                    .HasMaxLength(200);
+            builder.HasMany(e => e.PlatformKeys)
+                   .WithOne()
+                   .HasForeignKey(p => p.UserId);
         }
     }
 }

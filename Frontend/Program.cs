@@ -1,4 +1,9 @@
+using BackendLibrary;
 using Frontend.Data;
+using Frontend.Data.Models;
+using Frontend.ViewModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Frontend
@@ -10,13 +15,24 @@ namespace Frontend
             var builder = WebApplication.CreateBuilder(args);
             string connectionString = builder.Configuration["AppSecrets:ConnectionString"] ??
                 throw new InvalidOperationException("Connection string not found.");
-            Console.WriteLine(connectionString);
-;            // Add services to the container.
+
+            Dictionary<Enum, string[]> platformKeyMap = new Dictionary<Enum, string[]>()
+            {
+                { Platform.Kraken, new []{ nameof(PlatformKey.SecretKey)} }
+            };
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
-            var app = builder.Build();
 
+            // TODO: Change RequireConfirmedAccount after full register and login implementation
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            var app = builder.Build();
+            
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
