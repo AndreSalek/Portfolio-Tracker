@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BackendLibrary
+namespace Frontend.Common
 {
     public enum Platform
     {

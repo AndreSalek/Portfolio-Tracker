@@ -1,31 +1,12 @@
-﻿@model IEnumerable<PlatformKeyViewModel>
+﻿@model Dictionary<string, string>
 
-<table class="table table-borderless table-wrapper text-center">
-    <a class="btn btn-primary" href="/Portfolio/AddKey">Add key</a>
-    <thead>
-        <tr>
-            <th class="table-header">@nameof(PlatformKeyViewModel.Platform)</th>
-            <th class="min-vw-75">@nameof(PlatformKeyViewModel.SecretKey)</th>
-            <th class="table-header">Delete Key</th>
-        </tr>
-    </thead>
-    <tbody class="">
-            @foreach (var key in Model)
-            {
-            @* TODO: Propably change this later to use javascript and have one form only instead of form for each row *@
-            <form method="post" asp-controller="Portfolio" asp-action="RemoveKey">
-                <tr>
-                    <td>
-                        <input type="hidden" name="@nameof(PlatformKeyViewModel.Id)" value="@key.Id" />
-                    </td>
-                    <td>@key.Platform</td>
-                    <td>@key.SecretKey</td>
-                    <td>
-                    <button type="submit" class="btn btn-secondary">Remove</button>
-                    </td>
-                </tr>
-            </form>
-            }
-        
-    </tbody>
-</table>
+@foreach(var item in Model)
+{
+    <div class="">
+        <div class="">
+            <h5 class="">@item.Key</h5>
+            <p class="">@item.Value</p>
+        </div>
+    </div>
+}
+)

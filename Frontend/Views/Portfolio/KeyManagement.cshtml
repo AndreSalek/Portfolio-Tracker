@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PlatformKeyViewModel>
+
+<table class="table table-borderless table-wrapper text-center">
+    <a class="btn btn-primary" asp-controller="Portfolio" asp-action="AddPlatformKey">Add key</a>
+    <thead>
+        <tr>
+            <th class="table-header">@nameof(PlatformKeyViewModel.Platform)</th>
+            <th class="min-vw-75">@nameof(PlatformKeyViewModel.Secret)</th>
+            <th class="min-vw-75">@nameof(PlatformKeyViewModel.Public)</th>
+            <th class="table-header">Delete Key</th>
+        </tr>
+    </thead>
+    <tbody class="">
+        @foreach (var key in Model)
+        {
+            @* TODO: Propably change this later to use javascript and have one form only instead of form for each row *@
+            <form method="post" asp-controller="Portfolio" asp-action="RemovePlatformKey">
+                <tr>
+                    <td class="d-none">
+                        <input type="hidden" name="@nameof(PlatformKeyViewModel.Id)" value="@key.Id" />
+                    </td>
+                    <td>@key.Platform</td>
+                    <td>@key.Secret</td>
+                    <td>@key.Public</td>
+                    <td>
+                        <button type="submit" class="btn btn-secondary">Remove</button>
+                    </td>
+                </tr>
+            </form>
+        }
+        
+    </tbody>
+</table>

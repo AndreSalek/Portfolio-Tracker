@@ -1,4 +1,4 @@
-﻿using BackendLibrary;
+﻿using Frontend.Common;
 using Frontend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -22,7 +22,11 @@ namespace Frontend.Data.Configuration
                    .IsRequired()
                    .HasConversion<string>(p => p.ToString(), p => (Platform)Enum.Parse(typeof(Platform), p));
 
-            builder.Property(p => p.SecretKey)
+            builder.Property(p => p.Secret)
+                   .IsRequired()
+                   .HasMaxLength(500);
+
+            builder.Property(p => p.Public)
                    .IsRequired()
                    .HasMaxLength(500);
 
