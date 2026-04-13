@@ -19,7 +19,7 @@ namespace Frontend.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageAdminUser()
         {
-            if (_signInManager.IsSignedIn(User)) return RedirectToAction("Index", "Portfolio");
+            if (_signInManager.IsSignedIn(User)) return RedirectToAction("Index", "Home");
 
             return View(nameof(ManageAdminUser));
         }
@@ -57,7 +57,7 @@ namespace Frontend.Controllers
             bool lockoutOnFailure = false;
             Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(data.UserName, data.Password, rememberMe, lockoutOnFailure);
 
-            if (result.Succeeded) return RedirectToAction("Index", "Portfolio");
+            if (result.Succeeded) return RedirectToAction("Index", "Home");
             
             return RedirectToAction("Error", "Home");
         }
