@@ -10,9 +10,9 @@ namespace PortfolioTrackerTests
             string privateKey = "kQH5HW/8p1uGOVjbgWA7FunAmGO8lsSUXNsu3eow76sz84Q18fWxnyRzBHCd3pd5nE9qa99HAZtuZuj6F1huXg==";
             long nonce = 1616492376594;
             string actionPath = "/0/private/AddOrder";
-            Dictionary<string, string> payload = new Dictionary<string, string>()
+            Dictionary<string, object> payload = new Dictionary<string, object>()
             {
-                { "nonce", "1616492376594" },
+                { "nonce", nonce },
                 { "ordertype", "limit" },
                 { "pair", "XBTUSD" },
                 { "price", "37500" },

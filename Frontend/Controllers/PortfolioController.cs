@@ -1,4 +1,5 @@
 ﻿using BackendLibrary;
+using BackendLibrary.Interfaces;
 using Frontend.Data;
 using Frontend.Data.Models;
 using Frontend.Services;
@@ -18,29 +19,23 @@ namespace Frontend.Controllers
         private UserManager<ApplicationUser> _userManager;
         private ApplicationDbContext _dbContext;
         private readonly KrakenService _krakenService;
-        public PortfolioController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, KrakenService krakenService)
+        private ILogger<PortfolioController> _logger;
+        public PortfolioController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, KrakenService krakenService, ILogger<PortfolioController> logger)
         {
             _userManager = userManager;
             _dbContext = dbContext;
             _krakenService = krakenService;
+            _logger = logger;
         }
 
         #region GET METHODS
         [HttpGet]
-        public async Task<IActionResult> Index() => RedirectToAction(nameof(GetPortfolio));
-
-        [HttpGet]
-        public async Task<IActionResult> GetPortfolio()
+        public async Task<IActionResult> Index()
         {
-            ApplicationUser user = await _userManager.GetUserAsync(User) ?? throw new KeyNotFoundException("Missing user ID claim.");
-            Dictionary<string, string> allBalances = new Dictionary<string, string>();
+            IPlatformBalances balance =  await _krakenService.GetAccountBalances();
+            _logger.LogInformation($"Retrieved balances from Kraken: {String.Join(Environment.NewLine, balance)}");
 
-
-            ExternalApiResponse krakenResponse = await _krakenService.GetAccountBalances();
-            Dictionary<string, string> krakenBalances = krakenResponse.Result as Dictionary<string, string> ?? new Dictionary<string, string>();
-            allBalances.Concat(krakenBalances);
-
-            return View(nameof(Index), allBalances);
+            return View(nameof(Index), balance);
         }
 
         [HttpGet]

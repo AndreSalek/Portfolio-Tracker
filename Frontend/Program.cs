@@ -23,7 +23,7 @@ namespace Frontend
             {
                 { Platform.Kraken, new []{ nameof(PlatformKey.Secret), nameof(PlatformKey.Public)} }
             };
-
+            builder.Logging.AddConsole();
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));

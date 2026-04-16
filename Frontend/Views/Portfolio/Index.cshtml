@@ -1,6 +1,6 @@
-﻿@model Dictionary<string, string>
+﻿@model IPlatformBalances
 
-@foreach(var item in Model)
+@foreach(var item in Model.Balances)
 {
     <div class="">
         <div class="">
@@ -9,4 +9,3 @@
         </div>
     </div>
 }
-)

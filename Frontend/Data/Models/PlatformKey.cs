@@ -1,4 +1,5 @@
-﻿using Frontend.Common;
+﻿using BackendLibrary;
+using Frontend.Common;
 
 namespace Frontend.Data.Models
 {
