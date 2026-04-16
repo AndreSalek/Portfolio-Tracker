@@ -88,15 +88,20 @@ namespace Frontend.Migrations
 
             modelBuilder.Entity("Frontend.Data.Models.PlatformKey", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("text");
 
                     b.Property<string>("Platform")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("SecretKey")
+                    b.Property<string>("Public")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Secret")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");

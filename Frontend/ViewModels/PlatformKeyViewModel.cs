@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using BackendLibrary;
+using Frontend.Common;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
-using BackendLibrary;
 
 namespace Frontend.ViewModels
 {
@@ -15,6 +16,8 @@ namespace Frontend.ViewModels
         public Platform Platform { get; set; }
         [Required]
         [Display(Name = "Secret Key")]
-        public string SecretKey { get; set; } = String.Empty;
+        public string Secret { get; set; } = String.Empty;
+        [Display(Name = "Public Key")]
+        public string Public { get; set; } = String.Empty;
     }
 }

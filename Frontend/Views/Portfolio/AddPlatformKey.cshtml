@@ -1,0 +1,27 @@
+﻿@model PlatformKeyViewModel
+@inject Dictionary<Platform, string[]> AvailablePlatformsFieldsMap;
+<div>
+    <form id="apiKeyForm" asp-controller="Portfolio" asp-action="AddPlatformKey" method="post">
+        <div class="form-floating mb-3">
+            <select id="supportedPlatformsSelect" asp-for="Platform" onchange="changeRequiredFields">
+                @foreach(Platform platform in AvailablePlatformsFieldsMap.Keys)
+                {
+                    <option name="@platform">@platform</option>
+                }
+            </select>
+        </div>
+        
+        @* TODO: Add dynamically rendered fields via javascript *@
+        <div id="apiFields">
+            <div id="ApiSecretField" class="form-floating mb-3">
+                <input asp-for="Secret" class="form-control" autocomplete="off" aria-required="true" />
+                <label asp-for="Secret" class="form-label">ApiSecret</label>
+            </div>
+            <div id="ApiPublicField" class="form-floating mb-3">
+                <input asp-for="Public" class="form-control" autocomplete="off" aria-required="true" />
+                <label asp-for="Public" class="form-label">ApiPublic</label>
+            </div>
+        </div>
+        <button class="btn btn-primary w-100" type="submit" id="AddKeyBtn">Add API Key</button>
+    </form>
+</div>

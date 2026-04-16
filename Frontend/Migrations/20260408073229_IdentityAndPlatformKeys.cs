@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Frontend.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityAndPlatformKey : Migration
+    public partial class IdentityAndPlatformKeys : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,10 +79,11 @@ namespace Frontend.Migrations
                 name: "PlatformKeys",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Platform = table.Column<string>(type: "text", nullable: false),
-                    SecretKey = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                    Secret = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Public = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
