@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "BackendLibrary": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\User\\Desktop\\Investovani\\Portfolio-Tracker\\Frontend"
+    },
+    "Profil 1": {
+      "commandName": "Project"
+    }
+  }
+}

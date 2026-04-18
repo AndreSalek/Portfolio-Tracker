@@ -102,7 +102,7 @@ namespace Frontend.Controllers
 
             _dbContext.Remove(platformKey);
             await _dbContext.SaveChangesAsync();
-
+            
             return RedirectToAction(nameof(KeyManagement));
         }
         #endregion

@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "User Managment";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Use this area to provide additional information.</p>
+
+<form asp-controller="UserManagment" asp-action="RegisterUser" method="post">
+
+    <div class="form-group">
+        // check documentation for alternatice using AT
+        <label for="username">User name</label>
+        <input type="text"
+               class="form-control"
+               id="username"
+               name="username"
+               placeholder="Enter username">
+    </div>
+    <div class="form-group">
+    <label for="email">Enter Email</label>
+    <input type="email"
+           class="form-control"
+           id="email"
+           name="email"
+           placeholder="Email"
+           required>
+    </div>
+    <div class="form-group">
+        <label for="password">Enter Password</label>
+        <input type="password"
+               class="form-control"
+               id="password"
+               name="password"
+               placeholder="Password"
+               required>
+    </div>
+
+    <button type="submit" class="w-100 btn btn-lg btn-primary">
+        Register
+    </button>
+
+</form>
