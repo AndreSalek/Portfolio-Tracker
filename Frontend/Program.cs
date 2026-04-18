@@ -26,7 +26,7 @@ namespace Frontend
 
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseNpgsql(connectionString));  
 
             // TODO: Change RequireConfirmedAccount after full register and login implementation
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)

@@ -8,6 +8,11 @@ namespace Frontend.Controllers
     {
         public IActionResult Index()
         {
+            var isLogged = User.Identity.IsAuthenticated;
+            var username = User.Identity.Name;
+
+            ViewBag.IsLogged = isLogged;
+            ViewBag.Username = username;
             return View();
         }
 
