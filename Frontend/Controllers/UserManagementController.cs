@@ -8,13 +8,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Frontend.Controllers
 {
-    public class UserManagmentController : Controller
+    public class UserManagementController : Controller
     {
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public UserManagmentController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public UserManagementController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
