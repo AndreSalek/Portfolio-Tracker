@@ -4,9 +4,9 @@
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
-
 <p>Use this area to provide additional information.</p>
 
+<div asp-validation-summary="All" class="text-danger"></div>
 <form asp-controller="UserManagement" asp-action="LoginUser" method="post">
 
     <div class="form-group">

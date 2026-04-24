@@ -1,6 +1,7 @@
 ﻿using AspNetCoreGeneratedDocument;
 using Frontend.Data;
 using Frontend.Data.Models;
+using Frontend.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -28,20 +29,24 @@ namespace Frontend.Controllers
 
         public IActionResult Login()
         {
-            ViewData["Message"] = "Login page.";
+            ViewData["Message"] = "Please log in with your credentials.";
 
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser(string email, string password, string username)
+        public async Task<IActionResult> RegisterUser(RegisterUserViewModel userToRegister)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userToRegister);
+            }
             ApplicationUser user = new ApplicationUser
             {
-                UserName = username,
-                Email = email
+                UserName = userToRegister.username,
+                Email = userToRegister.email
             };
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, userToRegister.password);
 
             if (!result.Succeeded)
             {
@@ -49,20 +54,26 @@ namespace Frontend.Controllers
                 return View("Registration");
             }
 
-            ViewData["Message"] = "User successfully registered: " + username;
+            ViewData["Message"] = "User successfully registered: " + userToRegister.username;
             return View("Registration");
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginUser(string password, string username)
+        public async Task<IActionResult> LoginUser(LoginUserViewModel userToLogin)
         {
-            bool rememberMe = true;
+            if (!ModelState.IsValid)
+            {
+                return View(userToLogin);
+            }
+
             bool lockoutOnFailure = false;
-            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure);
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(userToLogin.username, userToLogin.password, userToLogin.IsLogged, lockoutOnFailure);
 
             if (result.Succeeded) return RedirectToAction("Index", "Home");
 
-            return RedirectToAction("Error", "Home");
+            else
+                ModelState.AddModelError("", "Chyba (dodelat zbytek chyb)");
+            return View("Login", userToLogin);
         }
         public async Task<IActionResult> Logout()
         {
