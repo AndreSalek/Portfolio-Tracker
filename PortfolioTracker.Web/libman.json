@@ -43,8 +43,12 @@
       ]
     },
     {
+      "library": "bootstrap@5.3.8",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
       "library": "jquery@3.7.1",
-      "destination": "wwwroot/jquery/"
+      "destination": "wwwroot/lib/jquery/"
     }
   ]
 }
