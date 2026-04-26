@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Frontend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260408073229_IdentityAndPlatformKeys")]
-    partial class IdentityAndPlatformKeys
+    [Migration("20260426085336_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

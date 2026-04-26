@@ -25,6 +25,11 @@ namespace Frontend.Data
 
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new PlatformKeyConfiguration());
+
+            
         }
+
+
+        
     }
 }

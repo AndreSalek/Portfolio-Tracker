@@ -7,14 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Frontend.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityAndPlatformKeys : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "User");
-
             migrationBuilder.CreateTable(
                 name: "Role",
                 columns: table => new
@@ -250,20 +247,6 @@ namespace Frontend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Password = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Username = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                });
         }
     }
 }

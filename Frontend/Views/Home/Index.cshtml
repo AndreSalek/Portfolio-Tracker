@@ -15,3 +15,8 @@ else
 {
     <h2>Nejsi přihlášen</h2>
 }
+
+@if (User.IsInRole("Admin"))
+{
+    <button class="btn btn-danger">Admin button</button>
+}

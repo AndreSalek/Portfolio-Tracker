@@ -2,6 +2,7 @@ using BackendLibrary;
 using Frontend.Common;
 using Frontend.Data;
 using Frontend.Data.Models;
+using Frontend.Data.Seed;
 using Frontend.Services;
 using Frontend.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -12,7 +13,7 @@ namespace Frontend
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             var services = builder.Services;
@@ -58,12 +59,21 @@ namespace Frontend
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+
+            // AI temporary?? maybe
+            using (var scope = app.Services.CreateScope())
+            {
+                await IdentitySeeder.SeedRolesAsync(scope.ServiceProvider);
+            }
+
 
             app.Run();
         }
