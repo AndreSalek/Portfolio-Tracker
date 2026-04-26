@@ -10,10 +10,10 @@ namespace Frontend.ViewModels
     public class LoginUserViewModel
     {
         [Required]
-        public string username { get; set; }
+        public required string Username { get; set; }
 
         [Required]
-        public string password { get; set; }
+        public required string Password { get; set; }
 
         public bool IsLogged { get; set; }
     }

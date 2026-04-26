@@ -2,6 +2,7 @@
 using Frontend.Data;
 using Frontend.Data.Models;
 using Frontend.ViewModels;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -14,11 +15,13 @@ namespace Frontend.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserManagementController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public UserManagementController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
         public IActionResult Registration()
         {
@@ -39,22 +42,32 @@ namespace Frontend.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(userToRegister);
+                ViewData["Message"] = "User was not succesfully registered: " + userToRegister.Username + " " + userToRegister.Admin;
+                return View("Registration", userToRegister);
             }
+
             ApplicationUser user = new ApplicationUser
             {
-                UserName = userToRegister.username,
-                Email = userToRegister.email
+                UserName = userToRegister.Username,
+                Email = userToRegister.Email
             };
-            var result = await _userManager.CreateAsync(user, userToRegister.password);
 
+            if (!await _roleManager.RoleExistsAsync(userToRegister.Admin))
+            {
+                ViewData["Message"] = userToRegister.Admin + " role neexistuje, zadejte existující roli např:" + await _roleManager.RoleExistsAsync(userToRegister.Admin);
+                return View("Registration");
+            }
+            
+            var result = await _userManager.CreateAsync(user, userToRegister.Password);
+   
             if (!result.Succeeded)
             {
                 ViewData["Message"] = string.Join(" | ", result.Errors.Select(e => e.Description));
                 return View("Registration");
             }
-
-            ViewData["Message"] = "User successfully registered: " + userToRegister.username;
+            await _userManager.AddToRoleAsync(user, userToRegister.Admin);
+            // await _signInManager.RefreshSignInAsync(user); redundant
+            ViewData["Message"] = "User successfully registered: " + userToRegister.Username + userToRegister.Admin;
             return View("Registration");
         }
 
@@ -67,7 +80,7 @@ namespace Frontend.Controllers
             }
 
             bool lockoutOnFailure = false;
-            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(userToLogin.username, userToLogin.password, userToLogin.IsLogged, lockoutOnFailure);
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(userToLogin.Username, userToLogin.Password, userToLogin.IsLogged, lockoutOnFailure);
 
             if (result.Succeeded) return RedirectToAction("Index", "Home");
 
