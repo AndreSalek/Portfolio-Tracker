@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "twitter-bootstrap@5.3.8",
-      "destination": "wwwroot/twitter-bootstrap/",
+      "destination": "wwwroot/lib/bootstrap/dist/",
       "files": [
         "js/bootstrap.min.js",
         "css/bootstrap-grid.css",

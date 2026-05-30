@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="BackendLibrary/BackendLibrary.csproj" />
-  <Project Path="Frontend/Frontend.csproj" />
-  <Project Path="PortfolioTrackerTests/PortfolioTrackerTests.csproj" Id="94196f17-d2da-43b0-a58e-f315f9ea8199" />
+  <Project Path="PortfolioTracker.Core/PortfolioTracker.Core.csproj" />
+  <Project Path="PortfolioTracker.Web/PortfolioTracker.Web.csproj" />
+  <Project Path="PortfolioTracker.Tests/PortfolioTracker.Tests.csproj" Id="94196f17-d2da-43b0-a58e-f315f9ea8199" />
 </Solution>
