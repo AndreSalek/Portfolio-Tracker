@@ -20,7 +20,7 @@ namespace PortfolioTrackerTests
                 { "volume", "1.25" }
             };
             string apiSignExpected = "4/dpxb3iT4tp/ZCVEwSnEsLxx0bqyhLpdfOpc6fn7OR8+UClSV5n9E6aSS8MPtnRfp32bAb0nmbRn6H8ndwLUQ==";
-
+            
             string apiSignGenerated = PlatformRequestSigner.GetKrakenSignature(privateKey, nonce, actionPath, payload);
 
             Assert.Equal(apiSignExpected, apiSignGenerated);
