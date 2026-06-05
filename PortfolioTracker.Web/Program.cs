@@ -8,6 +8,8 @@ using Frontend.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Services;
 
 namespace Frontend
 {
@@ -30,7 +32,7 @@ namespace Frontend
                 options.UseNpgsql(connectionString));  
 
             // TODO: Change RequireConfirmedAccount after full register and login implementation
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -44,6 +46,10 @@ namespace Frontend
                 httpClient.BaseAddress = new Uri("https://api.kraken.com");
             })
             .AddHttpMessageHandler<KrakenHttpHandler>();
+
+            services.Configure<EmailSettings>(
+            builder.Configuration.GetSection("Email"));
+            builder.Services.AddScoped<EmailService>();
 
             var app = builder.Build();
             

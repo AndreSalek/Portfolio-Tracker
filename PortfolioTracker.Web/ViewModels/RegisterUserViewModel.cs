@@ -18,6 +18,5 @@ namespace Frontend.ViewModels
         [Required]
         public required string Password { get; set; }
 
-        public string Admin { get; set; }
     }
 }
