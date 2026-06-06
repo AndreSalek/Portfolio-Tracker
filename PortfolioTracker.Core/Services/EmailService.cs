@@ -46,7 +46,7 @@ namespace PortfolioTracker.Core.Services
             try
             {
                 var message = BuildConfirmationMailMessage(toEmail, confirmationLink);
-                await SendMessageAsync(message);
+                //await SendMessageAsync(message);
             }
             catch (SmtpCommandException ex)
             {

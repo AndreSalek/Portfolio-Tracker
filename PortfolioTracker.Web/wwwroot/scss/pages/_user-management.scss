@@ -1,0 +1,132 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.pt-user-mgmt {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-5;
+
+  @include media-up($bp-lg) {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+// Left column — tab navigation
+.pt-user-tabs {
+  @include surface($space-3);
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  align-self: start;
+
+  &__item {
+    @include button-reset;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    width: 100%;
+    text-align: left;
+    padding: $space-3;
+    border-radius: $radius-md;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    transition: background $transition-fast, color $transition-fast;
+
+    &:hover {
+      background: rgba(255,255,255,0.04);
+      color: $color-text-primary;
+    }
+
+    &.active {
+      background: rgba($color-brand-600, 0.18);
+      color: $color-brand-100;
+    }
+  }
+}
+
+// Right column — sections
+.pt-user-section {
+  @include surface($space-6);
+  display: none;
+
+  &.active { display: flex; flex-direction: column; gap: $space-5; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
+    padding-bottom: $space-4;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__title { margin: 0; font-size: $font-size-xl; }
+  &__subtitle { margin: $space-1 0 0; font-size: $font-size-sm; color: $color-text-muted; }
+}
+
+// Profile section — avatar + form grid
+.pt-profile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-5;
+
+  @include media-up($bp-md) {
+    grid-template-columns: 140px 1fr;
+    align-items: start;
+  }
+
+  &__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $color-brand-500, $color-brand-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: #fff;
+    border: 3px solid $color-border-strong;
+    box-shadow: $shadow-glow;
+    position: relative;
+
+    &-edit {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: $color-brand-500;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid $color-bg-elevated;
+      cursor: pointer;
+      transition: background $transition-fast;
+
+      &:hover { background: $color-brand-400; }
+    }
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-4;
+
+    @include media-up($bp-sm) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+// Admin user list controls (search + filter row)
+.pt-admin-toolbar {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-wrap: wrap;
+  margin-bottom: $space-4;
+
+  .form-control { max-width: 320px; }
+}

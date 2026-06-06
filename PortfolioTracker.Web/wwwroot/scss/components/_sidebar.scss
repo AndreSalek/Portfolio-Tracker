@@ -1,0 +1,104 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.pt-sidebar {
+  position: fixed;
+  top: $navbar-height;
+  left: 0;
+  bottom: 0;
+  width: $sidebar-width;
+  padding: $space-5 $space-3;
+  background: rgba($color-bg-elevated, 0.65);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  overflow-y: auto;
+  z-index: $z-sticky - 1;
+  @include scrollbar-dark;
+
+  @include media-down($bp-md) {
+    transform: translateX(-100%);
+    transition: transform $transition-base;
+    &.is-open { transform: translateX(0); }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    margin-bottom: $space-4;
+  }
+
+  &__label {
+    padding: $space-2 $space-3 $space-1;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $color-text-muted;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-3;
+    border-radius: $radius-md;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    transition: background $transition-fast, color $transition-fast;
+    position: relative;
+
+    .pt-sidebar__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      stroke: currentColor;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+      background: rgba(255,255,255,0.04);
+    }
+
+    &.active {
+      color: $color-brand-100;
+      background: linear-gradient(90deg, rgba($color-brand-600, 0.22) 0%, rgba($color-brand-600, 0.04) 100%);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20%;
+        bottom: 20%;
+        width: 3px;
+        background: $color-brand-400;
+        border-radius: 0 $radius-sm $radius-sm 0;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: $space-4;
+    border-top: 1px solid $color-border;
+  }
+}
+
+// Mobile toggle button (only on small screens).
+.pt-sidebar-toggle {
+  @include button-reset;
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  &:hover { background: rgba(255,255,255,0.05); }
+  @include media-down($bp-md) { display: inline-flex; }
+}

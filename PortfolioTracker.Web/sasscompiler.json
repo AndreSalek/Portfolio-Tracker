@@ -1,0 +1,7 @@
+{
+  "SourceFolder": "wwwroot/scss",
+  "TargetFolder": "wwwroot/css",
+  "Arguments": "--style=expanded --source-map",
+  "GenerateScopedCss": false,
+  "IncludePaths": []
+}

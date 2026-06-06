@@ -1,0 +1,118 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.pt-navbar {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  height: $navbar-height;
+  display: flex;
+  align-items: center;
+  padding: 0 $space-5;
+  @include glass(0.7);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+
+  &__inner {
+    width: 100%;
+    max-width: $container-max;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: $space-5;
+  }
+
+  // Logo block (left side)
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-3;
+    text-decoration: none;
+    color: $color-text-primary;
+    font-weight: $font-weight-semibold;
+    letter-spacing: -0.01em;
+
+    &:hover { color: $color-brand-300; }
+
+    img, svg {
+      height: 32px;
+      width: auto;
+    }
+  }
+
+  &__brand-text {
+    font-size: $font-size-lg;
+    @include media-down($bp-sm) { display: none; }
+  }
+
+  // Center area (links, optional)
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    margin-left: $space-5;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+
+    @include media-down($bp-md) { display: none; }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    padding: $space-2 $space-3;
+    border-radius: $radius-md;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    transition: background $transition-fast, color $transition-fast;
+
+    &:hover { color: $color-text-primary; background: rgba(255,255,255,0.04); }
+
+    &.active {
+      color: $color-brand-300;
+      background: rgba($color-brand-600, 0.12);
+    }
+  }
+
+  // Right-side actions (sign-in / sign-up / user menu)
+  &__actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  // User chip when authenticated
+  &__user {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-3;
+    border-radius: $radius-pill;
+    background: $color-bg-surface;
+    border: 1px solid $color-border;
+    color: $color-text-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+
+    &:hover { background: $color-bg-hover; color: $color-text-primary; }
+  }
+
+  &__avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $color-brand-500, $color-brand-800);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: #fff;
+  }
+}

@@ -8,6 +8,7 @@ using Frontend.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Configuration;
 using PortfolioTracker.Core.Models;
 using PortfolioTracker.Core.Services;
 
@@ -32,7 +33,7 @@ namespace Frontend
                 options.UseNpgsql(connectionString));  
 
             // TODO: Change RequireConfirmedAccount after full register and login implementation
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -64,8 +65,8 @@ namespace Frontend
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
