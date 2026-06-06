@@ -7,11 +7,23 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@if (ViewBag.IsLogged)
+@if (User.Identity.IsAuthenticated)
 {
-    <h2>Jsi přihlášen jako @ViewBag.Username</h2>
+    <h2>Jsi přihlášen jako @User.Identity.Name</h2>
 }
 else
 {
     <h2>Nejsi přihlášen</h2>
 }
+
+@if (User.IsInRole("Admin"))
+{
+    <form asp-controller="UserManagement" asp-action="SendTestMail" method="post">
+    <button class="btn btn-danger">Admin button</button>
+    </form>
+}
+
+
+<div style="width: 50%;">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>

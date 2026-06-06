@@ -6,6 +6,10 @@
     },
     "Profil 1": {
       "commandName": "Project"
+    },
+    "Profil 2": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\Lukas\\Desktop\\Investovani\\Portfolio-Tracker\\Frontend\\Program.cs"
     }
   }
 }

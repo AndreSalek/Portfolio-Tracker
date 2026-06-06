@@ -3,6 +3,8 @@ using Frontend.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Data.Configuration;
+using PortfolioTracker.Core.Models;
 
 namespace Frontend.Data
 {
@@ -10,6 +12,8 @@ namespace Frontend.Data
     {
         public new DbSet<ApplicationUser> Users { get; set; }
         public DbSet<PlatformKey> PlatformKeys { get; set; }
+
+        public DbSet<UserBio> UserBio { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
@@ -25,6 +29,12 @@ namespace Frontend.Data
 
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new PlatformKeyConfiguration());
+            builder.ApplyConfiguration(new UserBioConfiguration());
+
+
         }
+
+
+        
     }
 }
