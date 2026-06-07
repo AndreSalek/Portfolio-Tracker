@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Frontend.Views.UserManagment
+namespace PortfolioTracker.Web.Views.UserManagement
 {
     public class IndexModel : PageModel
     {

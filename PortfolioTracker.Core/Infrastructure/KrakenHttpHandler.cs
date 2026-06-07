@@ -1,8 +1,7 @@
-﻿using BackendLibrary;
-using Frontend.Data;
-using Frontend.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Data;
+using PortfolioTracker.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -10,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
-namespace Frontend.Common
+namespace PortfolioTracker.Core.Infrastructure
 {
     public class KrakenHttpHandler : DelegatingHandler
     {

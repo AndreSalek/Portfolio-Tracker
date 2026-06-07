@@ -1,11 +1,11 @@
-﻿using BackendLibrary;
-using Frontend.Common;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using PortfolioTracker.Core;
+using PortfolioTracker.Core.Infrastructure;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
-namespace Frontend.ViewModels
+namespace PortfolioTracker.Web.ViewModels
 {
     public class LoginUserViewModel
     {

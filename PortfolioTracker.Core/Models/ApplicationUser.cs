@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Frontend.Data.Models
+namespace PortfolioTracker.Core.Models
 {
     public class ApplicationUser : IdentityUser
     {

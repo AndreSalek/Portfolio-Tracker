@@ -1,6 +1,6 @@
-﻿using BackendLibrary;
+﻿using PortfolioTracker.Core;
 
-namespace PortfolioTrackerTests
+namespace PortfolioTracker.Tests
 {
     public class KrakenTests
     {

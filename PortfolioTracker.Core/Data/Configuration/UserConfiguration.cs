@@ -1,8 +1,8 @@
-﻿using Frontend.Data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PortfolioTracker.Core.Models;
 
-namespace Frontend.Data.Configuration
+namespace PortfolioTracker.Core.Data.Configuration
 {
     public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

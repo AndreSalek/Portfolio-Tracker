@@ -29,6 +29,7 @@
 
 // Pages
 @use 'pages/user-management';
+@use 'pages/error';
 
 // Vendor overrides (Bootstrap) — loaded last so it wins specificity ties.
 @use 'vendor/bootstrap-overrides';

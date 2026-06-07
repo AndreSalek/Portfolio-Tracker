@@ -1,18 +1,15 @@
-using BackendLibrary;
-using Frontend.Common;
-using Frontend.Data;
-using Frontend.Data.Models;
-using Frontend.Data.Seed;
-using Frontend.Services;
-using Frontend.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PortfolioTracker.Core.Configuration;
+using PortfolioTracker.Core;
+using PortfolioTracker.Core.Data;
+using PortfolioTracker.Core.Data.Seed;
+using PortfolioTracker.Core.Infrastructure;
 using PortfolioTracker.Core.Models;
 using PortfolioTracker.Core.Services;
+using PortfolioTracker.Web.ViewModels;
 
-namespace Frontend
+namespace PortfolioTracker.Web
 {
     public class Program
     {
@@ -27,7 +24,9 @@ namespace Frontend
             {
                 { Platform.Kraken, new []{ nameof(PlatformKey.Secret), nameof(PlatformKey.Public)} }
             };
+
             builder.Logging.AddConsole();
+            
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));  
@@ -50,18 +49,18 @@ namespace Frontend
 
             services.Configure<EmailSettings>(
             builder.Configuration.GetSection("Email"));
-            builder.Services.AddScoped<EmailService>();
+            services.AddScoped<EmailService>();
 
             var app = builder.Build();
-            
-            // Configure the HTTP request pipeline.
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseExceptionHandler("/Home/Error");
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
             app.UseHttpsRedirection();
             app.UseRouting();
 

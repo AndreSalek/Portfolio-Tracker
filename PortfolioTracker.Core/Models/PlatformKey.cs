@@ -1,7 +1,4 @@
-﻿using BackendLibrary;
-using Frontend.Common;
-
-namespace Frontend.Data.Models
+﻿namespace PortfolioTracker.Core.Models
 {
     public class PlatformKey
     {

@@ -1,9 +1,9 @@
-﻿using BackendLibrary.Interfaces;
+﻿using PortfolioTracker.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BackendLibrary
+namespace PortfolioTracker.Core
 {
     public class ExternalApiResponse : IExternalApiResponse
     {

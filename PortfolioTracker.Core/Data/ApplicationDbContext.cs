@@ -1,12 +1,10 @@
-﻿using Frontend.Data.Configuration;
-using Frontend.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PortfolioTracker.Core.Data.Configuration;
 using PortfolioTracker.Core.Models;
 
-namespace Frontend.Data
+namespace PortfolioTracker.Core.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

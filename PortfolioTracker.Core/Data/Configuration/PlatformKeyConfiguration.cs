@@ -1,10 +1,10 @@
-﻿using BackendLibrary;
-using Frontend.Common;
-using Frontend.Data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PortfolioTracker.Core;
+using PortfolioTracker.Core.Infrastructure;
+using PortfolioTracker.Core.Models;
 
-namespace Frontend.Data.Configuration
+namespace PortfolioTracker.Core.Data.Configuration
 {
     public class PlatformKeyConfiguration : IEntityTypeConfiguration<PlatformKey>
     {
