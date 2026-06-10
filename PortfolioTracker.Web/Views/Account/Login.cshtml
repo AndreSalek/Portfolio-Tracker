@@ -1,0 +1,58 @@
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="pt-auth">
+    <div class="pt-auth-card">
+        <div class="pt-auth-card__header">
+            <h1 class="pt-auth-card__title">Welcome back</h1>
+            <p class="pt-auth-card__subtitle">Sign in to your Portfolio Tracker account</p>
+        </div>
+
+        @if (ViewData["Message"] != null)
+        {
+            <div class="pt-auth-card__message">@ViewData["Message"]</div>
+        }
+
+        <div asp-validation-summary="All" class="validation-summary-errors"></div>
+
+        <form asp-controller="Account" asp-action="LoginUser" method="post">
+            <div class="form-group">
+                <label class="form-label" for="username">Username</label>
+                <input type="text"
+                       class="form-control"
+                       id="username"
+                       name="username"
+                       placeholder="Enter your username"
+                       autocomplete="username"
+                       required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password"
+                       class="form-control"
+                       id="password"
+                       name="password"
+                       placeholder="Enter your password"
+                       autocomplete="current-password"
+                       required />
+            </div>
+
+            <div class="form-check" style="margin-bottom: var(--space-4, 1rem)">
+                <input type="checkbox" class="form-check-input" id="isLogged" name="IsLogged" value="true" />
+                <label for="isLogged">Keep me signed in</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                Sign in
+            </button>
+        </form>
+
+        <div class="pt-auth-card__footer">
+            Don't have an account?
+            <a asp-controller="Account" asp-action="Registration">Create one</a>
+        </div>
+    </div>
+</div>

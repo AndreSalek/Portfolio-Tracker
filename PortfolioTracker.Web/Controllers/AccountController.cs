@@ -1,0 +1,137 @@
+﻿using AspNetCoreGeneratedDocument;
+using Frontend.Data;
+using Frontend.Data.Models;
+using Frontend.ViewModels;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using PortfolioTracker.Core.Interfaces;
+using PortfolioTracker.Core.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+
+namespace Frontend.Controllers
+{
+    public class AccountController : Controller
+    {
+        private readonly EmailService _emailService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserService _userService;
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, 
+            EmailService emailService, IUserService userService)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _emailService = emailService;
+            _userService = userService;
+        }
+        public IActionResult Registration()
+        {
+            
+
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            ViewData["Message"] = "Please log in with your credentials.";
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(RegisterUserViewModel model)
+        {
+            // correct version
+            //if (!ModelState.IsValid)
+            //    return View("Registration", model);
+
+            //var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password);
+
+            //if (!result.Succeeded)
+            //{
+            //    foreach (var error in result.Errors)
+            //        ModelState.AddModelError(string.Empty, error);
+            //    return View("Registration", model);
+            //}
+
+            //return RedirectToAction("Login", "Account");
+
+            // refactor
+            if (!ModelState.IsValid)
+            {
+                return View("Registration", model); // errors should be automatic?? 
+            }
+
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = model.Username,
+                Email = model.Email,
+
+            };
+            
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
+                return View("Registration", model);
+            }
+
+            if (model.Admin == "admin")
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, user.Email }, Request.Scheme);
+            
+            // diabled 
+            // await _emailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
+           
+            ViewData["Message"] = "User successfully registered: " + model.Username;
+            return RedirectToAction("Login", "Account");  // create view successfull login
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return View("Error");
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            return View(result.Succeeded ? nameof(ConfirmEmail) : "Error");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            bool lockoutOnFailure = false;
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.IsLogged, lockoutOnFailure);
+
+            if (result.Succeeded) return RedirectToAction("Index", "Home");
+
+            else
+                ModelState.AddModelError("", "Chyba (dodelat zbytek chyb)");
+            return View("Login", model);
+        }
+        public async Task<IActionResult> Logout()
+        {
+             await _signInManager.SignOutAsync();
+             return RedirectToAction("Index", "Home");
+        }
+
+        
+    }
+}

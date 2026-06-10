@@ -1,0 +1,81 @@
+@*
+    Sidebar partial — rendered only for authenticated users.
+    Active state is set by comparing ViewContext.RouteData with the link target.
+*@
+@{
+    var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var currentAction     = ViewContext.RouteData.Values["Action"]?.ToString();
+
+    string ActiveClass(string controller, string action)
+        => string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase)
+           && string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase)
+           ? "active" : "";
+}
+
+<aside class="pt-sidebar" id="ptSidebar" aria-label="Primary navigation">
+    <div class="pt-sidebar__group">
+        <div class="pt-sidebar__label">Overview</div>
+
+        <a class="pt-sidebar__link @ActiveClass("Home", "Index")"
+           asp-controller="Home" asp-action="Index">
+            <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12 12 4l9 8"/><path d="M5 10v10h14V10"/>
+            </svg>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="pt-sidebar__link @ActiveClass("Portfolio", "Index")"
+           asp-controller="Portfolio" asp-action="Index">
+            <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/>
+            </svg>
+            <span>Portfolio</span>
+        </a>
+    </div>
+
+    <div class="pt-sidebar__group">
+        <div class="pt-sidebar__label">Settings</div>
+
+        <a class="pt-sidebar__link @ActiveClass("Portfolio", "KeyManagement")"
+           asp-controller="Portfolio" asp-action="KeyManagement">
+            <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="8" cy="15" r="4"/><path d="M11 12l9-9"/><path d="M17 5l3 3"/>
+            </svg>
+            <span>API Keys</span>
+        </a>
+
+        <a class="pt-sidebar__link @ActiveClass("Portfolio", "AddPlatformKey")"
+           asp-controller="Portfolio" asp-action="AddPlatformKey">
+            <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14"/><path d="M5 12h14"/>
+            </svg>
+            <span>Add Key</span>
+        </a>
+
+        <a class="pt-sidebar__link @ActiveClass("Account", "Profile")"
+           asp-controller="Account" asp-action="Profile">
+            <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+            </svg>
+            <span>Account</span>
+        </a>
+    </div>
+
+    <div class="pt-sidebar__footer">
+        <a class="pt-sidebar__link" asp-controller="Home" asp-action="Privacy">
+            <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/>
+            </svg>
+            <span>Privacy</span>
+        </a>
+
+        <form asp-controller="Account" asp-action="Logout" method="get" class="m-0">
+            <button type="submit" class="pt-sidebar__link" style="width:100%; border:0; background:transparent; cursor:pointer;">
+                <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                </svg>
+                <span>Log out</span>
+            </button>
+        </form>
+    </div>
+</aside>

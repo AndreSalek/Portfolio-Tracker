@@ -1,0 +1,81 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.pt-landing {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: $space-7 $space-5;
+
+  &__hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: $space-7;
+
+    @include media-up($bp-lg) {
+      grid-template-columns: 1fr 1.1fr;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-1 $space-3;
+    background: rgba($color-brand-500, 0.1);
+    border: 1px solid rgba($color-brand-500, 0.3);
+    border-radius: $radius-pill;
+    color: $color-brand-300;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: $space-4;
+    animation: pt-fade-up 400ms ease both;
+  }
+
+  &__title {
+    font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
+    line-height: 1.05;
+    margin: 0 0 $space-4;
+    letter-spacing: -0.02em;
+    animation: pt-fade-up 500ms ease 100ms both;
+
+    span {
+      @include text-gradient;
+    }
+  }
+
+  &__lead {
+    font-size: $font-size-lg;
+    color: $color-text-secondary;
+    margin-bottom: $space-6;
+    max-width: 540px;
+    animation: pt-fade-up 500ms ease 200ms both;
+  }
+
+  &__cta {
+    display: flex;
+    gap: $space-3;
+    flex-wrap: wrap;
+    animation: pt-fade-up 500ms ease 300ms both;
+  }
+
+  // Right column — wraps the animated SVG graph
+  &__visual {
+    position: relative;
+    animation: pt-fade-in 800ms ease 200ms both;
+  }
+
+  // Feature row below hero
+  &__features {
+    margin-top: $space-8;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-4;
+
+    @include media-up($bp-md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

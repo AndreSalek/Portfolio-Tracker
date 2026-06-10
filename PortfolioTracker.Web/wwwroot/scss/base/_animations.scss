@@ -1,0 +1,47 @@
+// Reusable keyframes used across components
+
+@keyframes pt-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pt-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pt-slide-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pt-draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pt-area-reveal {
+  from { opacity: 0; transform: scaleY(0); }
+  to   { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes pt-pulse {
+  0%   { transform: scale(1);   opacity: 0.85; }
+  50%  { transform: scale(1.6); opacity: 0;    }
+  100% { transform: scale(1);   opacity: 0;    }
+}
+
+@keyframes pt-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes pt-spin {
+  to { transform: rotate(360deg); }
+}
+
+// Utility classes
+.anim-fade-in  { animation: pt-fade-in 400ms ease both; }
+.anim-fade-up  { animation: pt-fade-up 500ms ease both; }
+.anim-delay-1  { animation-delay: 100ms; }
+.anim-delay-2  { animation-delay: 220ms; }
+.anim-delay-3  { animation-delay: 360ms; }

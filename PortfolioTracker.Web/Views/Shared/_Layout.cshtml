@@ -1,0 +1,81 @@
+@{
+    var isAuth = User.Identity?.IsAuthenticated ?? false;
+    var userName = User.Identity?.Name ?? "";
+    var initial = string.IsNullOrEmpty(userName) ? "?" : userName.Substring(0, 1).ToUpper();
+}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Portfolio Tracker</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" type="image/svg+xml" href="~/img/logo.svg" />
+</head>
+<body>
+    <header>
+        <nav class="pt-navbar">
+            <div class="pt-navbar__inner">
+                @* Left side: logo + brand text *@
+                <a class="pt-navbar__brand" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.svg" alt="Portfolio Tracker" />
+                    <span class="pt-navbar__brand-text">Portfolio Tracker</span>
+                </a>
+
+                @if (isAuth)
+                {
+                    <button type="button" class="pt-sidebar-toggle" aria-label="Toggle navigation"
+                            onclick="document.getElementById('ptSidebar').classList.toggle('is-open')">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <line x1="4" y1="7"  x2="20" y2="7"/>
+                            <line x1="4" y1="12" x2="20" y2="12"/>
+                            <line x1="4" y1="17" x2="20" y2="17"/>
+                        </svg>
+                    </button>
+                }
+
+                @* Right side: auth actions *@
+                <div class="pt-navbar__actions">
+                    @if (!isAuth)
+                    {
+                        <a class="btn btn-ghost" asp-controller="Account" asp-action="Login">Sign in</a>
+                        <a class="btn btn-primary" asp-controller="Account" asp-action="Registration">Sign up</a>
+                    }
+                    else
+                    {
+                        <a class="pt-navbar__user" asp-controller="Account" asp-action="Profile">
+                            <span class="pt-navbar__avatar">@initial</span>
+                            <span>@userName</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="pt-app @(isAuth ? "pt-app--authenticated" : "")">
+        @if (isAuth)
+        {
+            <partial name="_Sidebar" />
+        }
+
+        <main role="main" class="pt-main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="pt-footer">
+        &copy; 2026 Portfolio Tracker &middot;
+        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

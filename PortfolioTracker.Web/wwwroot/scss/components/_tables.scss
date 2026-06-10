@@ -1,0 +1,63 @@
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Dark-theme override for Bootstrap .table
+.table,
+.pt-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: $color-text-primary;
+  font-size: $font-size-sm;
+  background: transparent;
+
+  thead th {
+    text-align: left;
+    padding: $space-3 $space-4;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $color-text-muted;
+    background: rgba($color-bg-surface, 0.5);
+    border-bottom: 1px solid $color-border;
+  }
+
+  tbody td {
+    padding: $space-3 $space-4;
+    border-bottom: 1px solid $color-border;
+    color: $color-text-primary;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background $transition-fast;
+    &:hover { background: rgba($color-brand-600, 0.06); }
+    &:last-child td { border-bottom: 0; }
+  }
+
+  // Surface wrapper (rounded card around table)
+  &.is-card {
+    background: $color-bg-elevated;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    overflow: hidden;
+  }
+}
+
+// Status pill (used in tables)
+.pt-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  border: 1px solid transparent;
+
+  &.is-success { background: rgba($color-success, 0.12); color: color.adjust($color-success, $lightness: 10%); border-color: rgba($color-success, 0.3); }
+  &.is-danger  { background: rgba($color-danger,  0.12); color: color.adjust($color-danger,  $lightness: 10%); border-color: rgba($color-danger,  0.3); }
+  &.is-warning { background: rgba($color-warning, 0.12); color: color.adjust($color-warning, $lightness: 10%); border-color: rgba($color-warning, 0.3); }
+  &.is-info    { background: rgba($color-brand-500, 0.12); color: $color-brand-300; border-color: rgba($color-brand-500, 0.3); }
+}
