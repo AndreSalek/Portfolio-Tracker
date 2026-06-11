@@ -46,56 +46,37 @@ namespace Frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterUserViewModel model)
         {
-            // correct version
-            //if (!ModelState.IsValid)
-            //    return View("Registration", model);
-
-            //var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password);
-
-            //if (!result.Succeeded)
-            //{
-            //    foreach (var error in result.Errors)
-            //        ModelState.AddModelError(string.Empty, error);
-            //    return View("Registration", model);
-            //}
-
-            //return RedirectToAction("Login", "Account");
-
-            // refactor
-            if (!ModelState.IsValid)
-            {
-                return View("Registration", model); // errors should be automatic?? 
-            }
-
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = model.Username,
-                Email = model.Email,
-
-            };
             
-            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!ModelState.IsValid)
+                return View("Registration", model);
+
+            var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password);
 
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, error);
                 return View("Registration", model);
             }
 
-            if (model.Admin == "admin")
-            {
-                await _userManager.AddToRoleAsync(user, "Admin");
-            }
+            TempData["Email"] = model.Email;
+            TempData["Username"] = model.Username;
 
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, user.Email }, Request.Scheme);
-            
-            // diabled 
+
+            return RedirectToAction("SuccessfulRegistration", "Account");
+
+            // refactor
+
+
+
+
+
+            // // diabled => 
+            //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, user.Email }, Request.Scheme);
             // await _emailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
            
-            ViewData["Message"] = "User successfully registered: " + model.Username;
-            return RedirectToAction("Login", "Account");  // create view successfull login
+              
 
         }
 
@@ -132,6 +113,11 @@ namespace Frontend.Controllers
              return RedirectToAction("Index", "Home");
         }
 
-        
+        public IActionResult SuccessfulRegistration()
+        {
+            return View();
+        }
+
+
     }
 }
