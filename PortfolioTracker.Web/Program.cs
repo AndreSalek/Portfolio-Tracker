@@ -78,6 +78,8 @@ namespace Frontend
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 
             // AI temporary?? maybe
             using (var scope = app.Services.CreateScope())

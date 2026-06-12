@@ -50,7 +50,7 @@ namespace Frontend.Controllers
             if (!ModelState.IsValid)
                 return View("Registration", model);
 
-            var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password);
+            var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password, model.DisplayName, model.DateOfBirth);
 
             if (!result.Succeeded)
             {

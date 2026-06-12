@@ -16,9 +16,9 @@ namespace Frontend.ViewModels
         [MinLength(8)]
         public required string Password { get; set; }
 
-        public string? DisplayName { get; set; }
+        public required string DisplayName { get; set; }
 
-        public DateTime? DateOfBirth { get; set; }
+        public required DateTime DateOfBirth { get; set; }
 
         public string Admin { get; set; } = "default";
 
