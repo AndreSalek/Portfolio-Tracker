@@ -1,0 +1,13 @@
+﻿@model PortfolioTracker.Web.ViewModels.ProfileViewModel
+
+
+
+<div>
+    <p>@Model.Email</p>
+    <p>@Model.Username</p>
+    <p>@Model.DisplayName</p>
+    <p>
+        @Model.DateOfBirth?.ToString("dd/MM/yyyy")
+    </p>
+
+</div>

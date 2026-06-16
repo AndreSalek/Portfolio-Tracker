@@ -14,17 +14,18 @@ namespace PortfolioTracker.Core.Services
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
 
-        public UserService(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public UserService(UserManager<ApplicationUser> userManager, ApplicationDbContext context, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _context = context;
-
+            _signInManager = signInManager;
         }
 
-        public async Task<RegistrationResult> RegisterAsync(string username, string email, string password, string displayName, DateTime dateOfBirth)
+        public async Task<AuthResult> RegisterAsync(string username, string email, string password, string displayName, DateTime dateOfBirth)
         {
             var user = new ApplicationUser
             {
@@ -41,7 +42,7 @@ namespace PortfolioTracker.Core.Services
                 if (!result.Succeeded)
                 {
                     var errors = result.Errors.Select(e => e.Description);
-                    return RegistrationResult.Failure(errors);
+                    return AuthResult.Failure(errors);
                 }
                 var bio = new UserBio
                 {
@@ -60,8 +61,37 @@ namespace PortfolioTracker.Core.Services
                 throw;
             }
 
-            return RegistrationResult.Success();
+            return AuthResult.Success();
+        }
+
+        public async Task<AuthResult> LoginAsync(string username, string password, bool rememberMe)
+        {
+            
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure: true);
+
+            if (result.IsLockedOut)
+                return AuthResult.Failure(new[] { AuthErrors.AccountLocked });
+
+            if (result.IsNotAllowed)
+                return AuthResult.Failure(new[] { AuthErrors.EmailNotConfirmed });
+
+            if (!result.Succeeded)
+                return AuthResult.Failure(new[] { AuthErrors.InvalidCredentials });
+
+            return AuthResult.Success();
+        }
+
+        public async Task<UserBioResult> GetUserBioDataAsync (string id)
+        {
+
+            var userBio = await _context.UserBio.FirstOrDefaultAsync(b => b.UserId == id);
+
+            if (userBio == null)
+                return UserBioResult.Failure(new[] { "User bio not found." });
+
+            return UserBioResult.Success(userBio);
         }
     }
 
 }
+    

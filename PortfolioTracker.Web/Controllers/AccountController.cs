@@ -44,6 +44,7 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterUser(RegisterUserViewModel model)
         {
             
@@ -65,12 +66,6 @@ namespace Frontend.Controllers
 
             return RedirectToAction("SuccessfulRegistration", "Account");
 
-            // refactor
-
-
-
-
-
             // // diabled => 
             //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             //var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, user.Email }, Request.Scheme);
@@ -91,6 +86,7 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginUser(LoginUserViewModel model)
         {
             if (!ModelState.IsValid)
@@ -98,15 +94,20 @@ namespace Frontend.Controllers
                 return View(model);
             }
 
-            bool lockoutOnFailure = false;
-            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.IsLogged, lockoutOnFailure);
+           
+            var result = await _userService.LoginAsync(model.Username, model.Password, model.rememberMe);
 
-            if (result.Succeeded) return RedirectToAction("Index", "Home");
 
-            else
-                ModelState.AddModelError("", "Chyba (dodelat zbytek chyb)");
-            return View("Login", model);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error);
+                return View("Login", model);
+            }
+            return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
              await _signInManager.SignOutAsync();
