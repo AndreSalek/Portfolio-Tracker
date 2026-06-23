@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using MimeKit;
-using PortfolioTracker.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using MailKit.Net.Smtp;
+using PortfolioTracker.Core.ErrorHandling;
 using PortfolioTracker.Core.Models;
 
 namespace PortfolioTracker.Core.Services

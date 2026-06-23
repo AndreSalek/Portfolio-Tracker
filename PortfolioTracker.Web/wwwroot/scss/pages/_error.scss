@@ -1,0 +1,6 @@
+@use '../abstracts/variables' as *;
+
+.pt-error__title {
+  color: $color-danger;
+  font-size: $font-size-5xl;
+}

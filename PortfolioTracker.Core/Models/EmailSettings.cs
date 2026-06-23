@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PortfolioTracker.Core.Configuration
+namespace PortfolioTracker.Core.Models
 {
     public class EmailSettings
     {

@@ -1,10 +1,8 @@
-﻿using Frontend.Data;
-using Frontend.Data.Models;
-using Frontend.ViewModels;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Data;
 using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models;
 using PortfolioTracker.Web.ViewModels;

@@ -1,16 +1,15 @@
 ﻿using AspNetCoreGeneratedDocument;
-using Frontend.Data;
-using Frontend.Data.Models;
-using Frontend.ViewModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioTracker.Core.Interfaces;
+using PortfolioTracker.Core.Models;
 using PortfolioTracker.Core.Services;
+using PortfolioTracker.Web.ViewModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-namespace Frontend.Controllers
+namespace PortfolioTracker.Web.Controllers
 {
     public class AccountController : Controller
     {

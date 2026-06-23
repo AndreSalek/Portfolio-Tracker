@@ -1,7 +1,6 @@
-﻿using Frontend.Common;
 using PortfolioTracker.Core.Models.Common;
 
-namespace Frontend.Data.Models
+﻿namespace PortfolioTracker.Core.Models
 {
     public class PlatformKey
     {

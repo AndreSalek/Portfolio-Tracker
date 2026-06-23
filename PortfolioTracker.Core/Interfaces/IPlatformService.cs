@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BackendLibrary.Interfaces
+namespace PortfolioTracker.Core.Interfaces
 {
     public interface IPlatformService
     {

@@ -1,6 +1,6 @@
-﻿using PortfolioTracker.Core.Models.Common;
+using PortfolioTracker.Core.Models.Common;
 
-namespace PortfolioTrackerTests
+namespace PortfolioTracker.Tests
 {
     public class KrakenTests
     {

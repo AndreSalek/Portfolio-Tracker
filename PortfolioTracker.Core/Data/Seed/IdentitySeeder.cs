@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Frontend.Data.Seed
+namespace PortfolioTracker.Core.Data.Seed
 {
     public static class IdentitySeeder
     {

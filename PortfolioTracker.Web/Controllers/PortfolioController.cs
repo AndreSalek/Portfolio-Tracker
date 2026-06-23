@@ -1,17 +1,17 @@
-﻿using BackendLibrary;
-using BackendLibrary.Interfaces;
-using Frontend.Data;
-using Frontend.Data.Models;
-using Frontend.Services;
-using Frontend.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core;
+using PortfolioTracker.Core.Data;
+using PortfolioTracker.Core.Interfaces;
+using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Services;
+using PortfolioTracker.Web.ViewModels;
 
-namespace Frontend.Controllers
+namespace PortfolioTracker.Web.Controllers
 {
     [Authorize]
     public class PortfolioController : Controller

@@ -1,7 +1,6 @@
-﻿using BackendLibrary;
-using BackendLibrary.Interfaces;
-using Frontend.Data;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioTracker.Core.Data;
+using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models.Common;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
-namespace Frontend.Services
+namespace PortfolioTracker.Core.Services
 {
     public class KrakenService : IPlatformService
     {

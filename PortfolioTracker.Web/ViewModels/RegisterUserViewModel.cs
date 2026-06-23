@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-
-namespace Frontend.ViewModels
+namespace PortfolioTracker.Web.ViewModels
 {
     public class RegisterUserViewModel
     {

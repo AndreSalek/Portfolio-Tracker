@@ -1,6 +1,4 @@
-﻿using Frontend.Data;
-using Frontend.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models;

@@ -1,10 +1,10 @@
-﻿using BackendLibrary.Interfaces;
+﻿using PortfolioTracker.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PortfolioTracker.Core.Models.Common
-{
+namespace PortfolioTracker.Core.Models.Common 
+{ 
     public class PlatformBalances : IPlatformBalances
     {
         public Platform Platform { get; set; }
