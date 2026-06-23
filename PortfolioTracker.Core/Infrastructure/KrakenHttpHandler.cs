@@ -1,8 +1,8 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PortfolioTracker.Core.Data;
 using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;

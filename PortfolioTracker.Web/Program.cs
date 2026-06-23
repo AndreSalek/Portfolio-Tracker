@@ -5,6 +5,7 @@ using PortfolioTracker.Core;
 using PortfolioTracker.Core.Data;
 using PortfolioTracker.Core.Data.Seed;
 using PortfolioTracker.Core.Infrastructure;
+using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models;
 using PortfolioTracker.Core.Models.Common;
 using PortfolioTracker.Core.Services;

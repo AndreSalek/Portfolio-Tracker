@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PortfolioTracker.Core;
 using PortfolioTracker.Core.Infrastructure;
 using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Models.Common;
 
 namespace PortfolioTracker.Core.Data.Configuration
 {

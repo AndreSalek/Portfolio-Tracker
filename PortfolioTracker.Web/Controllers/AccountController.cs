@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models;
 using PortfolioTracker.Core.Services;
