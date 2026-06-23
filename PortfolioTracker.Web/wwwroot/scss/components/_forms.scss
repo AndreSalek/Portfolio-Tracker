@@ -1,0 +1,137 @@
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-bottom: $space-4;
+}
+
+.form-label,
+label {
+  display: inline-block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  margin: 0;
+}
+
+// Inputs / textarea / select — overrides Bootstrap form-control.
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    background: $color-bg-surface;
+    color: $color-text-primary;
+    font-family: $font-family-sans;
+    font-size: $font-size-sm;
+    line-height: 1.4;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    transition: border-color $transition-fast, box-shadow $transition-fast, background $transition-fast;
+
+    &::placeholder {
+        color: $color-text-secondary;
+    }
+
+    &:hover {
+        border-color: $color-border-strong;
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: none;
+        border-color: $color-brand-500;
+        background: color.adjust($color-bg-surface, $lightness: 2%);
+        box-shadow: 0 0 0 3px rgba($color-brand-500, 0.25);
+        color: $color-text-primary;
+    }
+
+    &:disabled, &[readonly] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    &.is-invalid {
+        border-color: $color-danger;
+        box-shadow: 0 0 0 3px rgba($color-danger, 0.18);
+    }
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+// Form-floating overrides for dark theme
+.form-floating {
+    position: relative;
+
+    > .form-control {
+        height: auto;
+        padding: 1.3rem 0.85rem 0.5rem;
+    }
+
+    > label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0.65rem 0.85rem;
+        color: $color-text-muted;
+        pointer-events: none;
+        transition: transform $transition-fast, color $transition-fast, font-size $transition-fast;
+        transform-origin: 0 0;
+    }
+
+    > .form-control:focus ~ label,
+    > .form-control:not(:placeholder-shown) ~ label {
+        transform: translateY(-0.4rem) scale(0.78);
+        color: $color-brand-400;
+    }
+}
+
+// Checkbox / radio
+.form-check {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.form-check-input {
+  width: 16px; height: 16px;
+  accent-color: $color-brand-500;
+  cursor: pointer;
+}
+
+// Inline validation messages
+.field-validation-error,
+.text-danger {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-danger;
+  margin-top: $space-1;
+}
+
+// Validation summary box
+.validation-summary-errors {
+  background: rgba($color-danger, 0.08);
+  border: 1px solid rgba($color-danger, 0.4);
+  border-radius: $radius-md;
+  padding: $space-3 $space-4;
+  margin-bottom: $space-4;
+  color: color.adjust($color-danger, $lightness: 12%);
+  font-size: $font-size-sm;
+
+  ul { margin: 0; padding-left: $space-5; }
+}

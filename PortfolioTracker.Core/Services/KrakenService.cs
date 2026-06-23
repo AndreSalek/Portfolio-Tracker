@@ -2,6 +2,7 @@
 using BackendLibrary.Interfaces;
 using Frontend.Data;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioTracker.Core.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;

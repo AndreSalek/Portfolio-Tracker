@@ -5,6 +5,7 @@ using Frontend.ViewModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -17,13 +18,16 @@ namespace Frontend.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserService _userService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, EmailService emailService)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, 
+            EmailService emailService, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _emailService = emailService;
+            _userService = userService;
         }
         public IActionResult Registration()
         {
@@ -40,35 +44,35 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterUser(RegisterUserViewModel model)
         {
+            
             if (!ModelState.IsValid)
+                return View("Registration", model);
+
+            var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password, model.DisplayName, model.DateOfBirth);
+
+            if (!result.Succeeded)
             {
-                ViewData["Message"] = "User was not succesfully registered: " + model.Username + " ";
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error);
                 return View("Registration", model);
             }
 
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = model.Username,
-                Email = model.Email
-            };
+            TempData["Email"] = model.Email;
+            TempData["Username"] = model.Username;
 
-            
-            var result = await _userManager.CreateAsync(user, model.Password);
-   
-            if (!result.Succeeded)
-            {
-                ViewData["Message"] = string.Join(" | ", result.Errors.Select(e => e.Description));
-                return View("Registration");
-            }
 
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
-            await _emailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
+            return RedirectToAction("SuccessfulRegistration", "Account");
+
+            // // diabled => 
+            //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, user.Email }, Request.Scheme);
+            // await _emailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
            
-            ViewData["Message"] = "User successfully registered: " + model.Username;
-            return View("Registration");
+              
+
         }
 
         [HttpGet]
@@ -82,6 +86,7 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginUser(LoginUserViewModel model)
         {
             if (!ModelState.IsValid)
@@ -89,21 +94,31 @@ namespace Frontend.Controllers
                 return View(model);
             }
 
-            bool lockoutOnFailure = false;
-            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.IsLogged, lockoutOnFailure);
+           
+            var result = await _userService.LoginAsync(model.Username, model.Password, model.rememberMe);
 
-            if (result.Succeeded) return RedirectToAction("Index", "Home");
 
-            else
-                ModelState.AddModelError("", "Chyba (dodelat zbytek chyb)");
-            return View("Login", model);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error);
+                return View("Login", model);
+            }
+            return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
              await _signInManager.SignOutAsync();
              return RedirectToAction("Index", "Home");
         }
 
-        
+        public IActionResult SuccessfulRegistration()
+        {
+            return View();
+        }
+
+
     }
 }

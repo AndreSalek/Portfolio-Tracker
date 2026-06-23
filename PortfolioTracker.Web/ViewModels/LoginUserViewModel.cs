@@ -15,6 +15,6 @@ namespace Frontend.ViewModels
         [Required]
         public required string Password { get; set; }
 
-        public bool IsLogged { get; set; }
+        public bool rememberMe { get; set; }
     }
 }

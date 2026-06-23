@@ -1,0 +1,54 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Page wrapper when the user is authenticated.
+// The sidebar is rendered alongside; main content gets a left offset.
+.pt-app {
+  min-height: calc(100vh - #{$navbar-height});
+
+  // Auth view: sidebar visible on md+, content offset to make room.
+  &--authenticated {
+    @include media-up($bp-md) {
+      padding-left: $sidebar-width;
+    }
+  }
+}
+
+.pt-main {
+  padding: $space-6 $space-5;
+  max-width: $container-max;
+  margin: 0 auto;
+
+  @include media-down($bp-sm) {
+    padding: $space-4 $space-3;
+  }
+}
+
+.pt-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-4;
+  margin-bottom: $space-6;
+  flex-wrap: wrap;
+
+  &__title { margin: 0; }
+  &__subtitle { margin: $space-1 0 0; color: $color-text-muted; }
+
+  &__actions {
+    display: flex;
+    gap: $space-2;
+  }
+}
+
+// Footer used in both landing & dashboard
+.pt-footer {
+  padding: $space-5;
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  border-top: 1px solid $color-border;
+  margin-top: $space-7;
+
+  a { color: $color-text-secondary; }
+}

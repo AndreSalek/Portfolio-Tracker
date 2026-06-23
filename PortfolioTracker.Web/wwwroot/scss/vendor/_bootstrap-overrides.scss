@@ -1,0 +1,75 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Bootstrap's CSS is loaded as-is before our compiled site.css, so these
+// rules override defaults using identical class names + higher specificity
+// where needed. Targeted at Bootstrap 5.3.
+
+// --- Containers & general -----------------------------------------------------
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  color: $color-text-primary;
+}
+
+// --- Surface utilities -------------------------------------------------------
+.bg-white { background: $color-bg-elevated !important; color: $color-text-primary; }
+.bg-light { background: $color-bg-surface  !important; }
+.bg-dark  { background: $color-bg-deep     !important; }
+
+.text-dark    { color: $color-text-primary   !important; }
+.text-muted   { color: $color-text-muted     !important; }
+.text-white   { color: $color-text-primary   !important; }
+
+// --- Bootstrap dropdowns -----------------------------------------------------
+.dropdown-menu {
+  background: $color-bg-elevated;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  padding: $space-1;
+}
+
+.dropdown-item {
+  color: $color-text-secondary;
+  border-radius: $radius-sm;
+  padding: $space-2 $space-3;
+  font-size: $font-size-sm;
+
+  &:hover, &:focus {
+    background: rgba($color-brand-600, 0.15);
+    color: $color-text-primary;
+  }
+}
+
+.dropdown-toggle::after { vertical-align: 0.18em; }
+
+// --- Bootstrap modal — dark surface ------------------------------------------
+.modal-content {
+  background: $color-bg-elevated;
+  border: 1px solid $color-border;
+  color: $color-text-primary;
+}
+
+// --- Bootstrap default navbar (legacy) — neutralise the white shell ----------
+.navbar-light,
+.navbar.bg-white {
+  background: transparent !important;
+  border-color: $color-border !important;
+  box-shadow: none !important;
+}
+
+.navbar-light .nav-link,
+.navbar-light .navbar-nav .nav-link {
+  color: $color-text-secondary !important;
+  &:hover { color: $color-text-primary !important; }
+}
+
+// --- Bootstrap border utilities ----------------------------------------------
+.border, .border-top, .border-bottom, .border-start, .border-end {
+  border-color: $color-border !important;
+}

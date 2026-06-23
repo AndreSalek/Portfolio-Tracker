@@ -50,7 +50,7 @@ namespace PortfolioTracker.Core.Services
             }
             catch (SmtpCommandException ex)
             {
-                // log + throw nebo vlastní exception
+                
                 throw new EmailSendException($"Failed to send email to {toEmail}", ex);
             }
         }

@@ -1,8 +1,8 @@
-﻿using BackendLibrary;
-using Frontend.Common;
+﻿using Frontend.Common;
 using Frontend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PortfolioTracker.Core.Models.Common;
 
 namespace Frontend.Data.Configuration
 {

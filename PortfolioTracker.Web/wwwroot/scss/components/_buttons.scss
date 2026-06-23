@@ -1,0 +1,110 @@
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Base button — overrides Bootstrap's .btn for dark theme.
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: 0.55rem 1.15rem;
+  font-family: $font-family-sans;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background $transition-fast, border-color $transition-fast,
+              color $transition-fast, transform $transition-fast,
+              box-shadow $transition-base;
+
+  &:focus-visible { @include focus-ring; }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &.btn-lg { padding: 0.85rem 1.5rem; font-size: $font-size-base; }
+  &.btn-sm { padding: 0.35rem 0.8rem; font-size: $font-size-xs; }
+}
+
+// Primary — solid blue with subtle glow.
+.btn-primary {
+  background: linear-gradient(180deg, $color-brand-500 0%, $color-brand-600 100%);
+  border-color: $color-brand-600;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba($color-brand-600, 0.35);
+
+  &:hover, &:focus {
+    background: linear-gradient(180deg, $color-brand-400 0%, $color-brand-600 100%);
+    border-color: $color-brand-500;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba($color-brand-500, 0.45);
+  }
+
+  &:active { transform: translateY(0); }
+}
+
+// Secondary — quiet dark surface.
+.btn-secondary {
+  background: $color-bg-surface;
+  border-color: $color-border-strong;
+  color: $color-text-primary;
+
+  &:hover, &:focus {
+    background: $color-bg-hover;
+    border-color: $color-brand-600;
+    color: $color-text-primary;
+  }
+}
+
+// Outline blue.
+.btn-outline {
+  background: transparent;
+  border-color: $color-brand-600;
+  color: $color-brand-300;
+
+  &:hover, &:focus {
+    background: rgba($color-brand-600, 0.12);
+    color: $color-brand-100;
+  }
+}
+
+// Ghost (no border, text-only with hover bg).
+.btn-ghost {
+  background: transparent;
+  color: $color-text-secondary;
+
+  &:hover, &:focus {
+    background: rgba(255, 255, 255, 0.04);
+    color: $color-text-primary;
+  }
+}
+
+// Danger.
+.btn-danger {
+  background: linear-gradient(180deg, $color-danger 0%, color.adjust($color-danger, $lightness: -8%) 100%);
+  border-color: color.adjust($color-danger, $lightness: -8%);
+  color: #fff;
+
+  &:hover, &:focus {
+    filter: brightness(1.1);
+    color: #fff;
+  }
+}
+
+// Icon-only square button.
+.btn-icon {
+  padding: 0.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+// Full-width.
+.btn-block { width: 100%; }

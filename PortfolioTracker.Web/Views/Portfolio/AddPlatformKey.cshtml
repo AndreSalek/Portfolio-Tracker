@@ -1,4 +1,5 @@
-﻿@model PlatformKeyViewModel
+﻿@using PortfolioTracker.Core.Models.Common
+@model PlatformKeyViewModel
 @inject Dictionary<Platform, string[]> AvailablePlatformsFieldsMap;
 <div>
     <form id="apiKeyForm" asp-controller="Portfolio" asp-action="AddPlatformKey" method="post">

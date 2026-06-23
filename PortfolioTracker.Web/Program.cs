@@ -1,4 +1,3 @@
-using BackendLibrary;
 using Frontend.Common;
 using Frontend.Data;
 using Frontend.Data.Models;
@@ -8,7 +7,10 @@ using Frontend.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Configuration;
+using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Models.Common;
 using PortfolioTracker.Core.Services;
 
 namespace Frontend
@@ -29,14 +31,21 @@ namespace Frontend
             builder.Logging.AddConsole();
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));  
+                options.UseNpgsql(connectionString));
 
             // TODO: Change RequireConfirmedAccount after full register and login implementation
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Lockout.MaxFailedAccessAttempts = 5;  
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15); 
+                options.Lockout.AllowedForNewUsers = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            
 
-            services.AddSingleton<Dictionary<Platform, string[]>>(platformKeyMap);
+        services.AddSingleton<Dictionary<Platform, string[]>>(platformKeyMap);
             services.AddScoped<KrakenHttpHandler>();
             services.AddValidation();
 
@@ -51,6 +60,9 @@ namespace Frontend
             builder.Configuration.GetSection("Email"));
             builder.Services.AddScoped<EmailService>();
 
+            services.AddScoped<IUserService, UserService>();
+
+
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.
@@ -64,14 +76,16 @@ namespace Frontend
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
             // AI temporary?? maybe

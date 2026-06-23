@@ -1,5 +1,5 @@
-﻿using BackendLibrary;
-using Frontend.Common;
+﻿using Frontend.Common;
+using PortfolioTracker.Core.Models.Common;
 
 namespace Frontend.Data.Models
 {
