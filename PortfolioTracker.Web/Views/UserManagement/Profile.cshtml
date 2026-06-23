@@ -1,4 +1,248 @@
-﻿@model PortfolioTracker.Web.ViewModels.ProfileViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Account";
+    var userName = User.Identity?.Name ?? "Guest";
+    var initial = string.IsNullOrEmpty(userName) ? "?" : userName.Substring(0, 1).ToUpper();
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<header class="pt-page-header">
+    <div>
+        <h1 class="pt-page-header__title">Account settings</h1>
+        <p class="pt-page-header__subtitle">Manage your profile, password and &mdash; if you're an admin &mdash; other users.</p>
+    </div>
+</header>
+
+<div class="pt-user-mgmt">
+    @* ----- Left: tab nav ----- *@
+    <nav class="pt-user-tabs" role="tablist" aria-label="Account sections">
+        <button type="button" class="pt-user-tabs__item active" data-tab="profile" role="tab">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+            </svg>
+            Profile
+        </button>
+        <button type="button" class="pt-user-tabs__item" data-tab="password" role="tab">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="10" width="16" height="11" rx="2" />
+                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+            </svg>
+            Password
+        </button>
+        @if (isAdmin)
+        {
+            <button type="button" class="pt-user-tabs__item" data-tab="users" role="tab">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="9" cy="8" r="3.5" />
+                    <circle cx="17" cy="9" r="2.5" />
+                    <path d="M3 20c0-3 3-5 6-5s6 2 6 5" />
+                    <path d="M15 19c.5-2 2.5-3 5-3" />
+                </svg>
+                Users
+                <span class="pt-pill is-info" style="margin-left:auto">Admin</span>
+            </button>
+        }
+    </nav>
+
+    @* ----- Right: panels ----- *@
+    <div>
+        @* ===== Profile panel ===== *@
+        <section class="pt-user-section active" data-panel="profile" role="tabpanel">
+            <div class="pt-user-section__header">
+                <div>
+                    <h2 class="pt-user-section__title">Profile</h2>
+                    <p class="pt-user-section__subtitle">This information is visible only to you.</p>
+                </div>
+            </div>
+
+            <form method="post" action="#" onsubmit="event.preventDefault();">
+                <div class="pt-profile">
+                    <div class="pt-profile__avatar">
+                        @initial
+                        <button type="button" class="pt-profile__avatar-edit" aria-label="Change avatar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 5v14" />
+                                <path d="M5 12h14" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="pt-profile__fields">
+                        <div class="form-group">
+                            <label class="form-label" for="profile-username">Username</label>
+                            <input id="profile-username" name="Username" type="text"
+                                   class="form-control" value="@userName" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="profile-email">Email</label>
+                            <input id="profile-email" name="Email" type="email"
+                                   class="form-control" placeholder="you@example.com" />
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label class="form-label" for="profile-bio">Bio</label>
+                            <textarea id="profile-bio" name="Bio" class="form-control"
+                                      placeholder="A short description shown on your public profile."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap: .5rem; margin-top: 1.5rem;">
+                    <button type="reset" class="btn btn-ghost">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </section>
+
+        @* ===== Password panel ===== *@
+        <section class="pt-user-section" data-panel="password" role="tabpanel">
+            <div class="pt-user-section__header">
+                <div>
+                    <h2 class="pt-user-section__title">Change password</h2>
+                    <p class="pt-user-section__subtitle">Choose a strong password you haven't used before.</p>
+                </div>
+            </div>
+
+            <form method="post" action="#" onsubmit="event.preventDefault();" style="max-width: 480px;">
+                <div class="form-group">
+                    <label class="form-label" for="current-password">Current password</label>
+                    <input id="current-password" name="CurrentPassword" type="password"
+                           class="form-control" autocomplete="current-password" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="new-password">New password</label>
+                    <input id="new-password" name="NewPassword" type="password"
+                           class="form-control" autocomplete="new-password" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="confirm-password">Confirm new password</label>
+                    <input id="confirm-password" name="ConfirmPassword" type="password"
+                           class="form-control" autocomplete="new-password" />
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap: .5rem; margin-top: 1.5rem;">
+                    <button type="reset" class="btn btn-ghost">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update password</button>
+                </div>
+            </form>
+        </section>
+
+        @* ===== Admin user list panel ===== *@
+        @if (isAdmin)
+        {
+            <section class="pt-user-section" data-panel="users" role="tabpanel">
+                <div class="pt-user-section__header">
+                    <div>
+                        <h2 class="pt-user-section__title">All users</h2>
+                        <p class="pt-user-section__subtitle">Manage roles and access. Admin only.</p>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M12 5v14" />
+                            <path d="M5 12h14" />
+                        </svg>
+                        Invite user
+                    </button>
+                </div>
+
+                <div class="pt-admin-toolbar">
+                    <input type="search" class="form-control" placeholder="Search by username or email" />
+                    <select class="form-control" style="max-width: 180px;">
+                        <option>All roles</option>
+                        <option>Admin</option>
+                        <option>User</option>
+                    </select>
+                </div>
+
+                <table class="pt-table is-card">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th style="text-align:right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @* Placeholder rows — no controller wiring yet *@
+                        @foreach (var row in new[] {
+                            new { Name = "alice",   Email = "alice@example.com",   Role = "Admin", Active = true  },
+                            new { Name = "bob",     Email = "bob@example.com",     Role = "User",  Active = true  },
+                            new { Name = "charlie", Email = "charlie@example.com", Role = "User",  Active = false },
+                        })
+                        {
+                            var ri = string.IsNullOrEmpty(row.Name) ? "?" : row.Name.Substring(0, 1).ToUpper();
+                            <tr>
+                                <td>
+                                    <div style="display:flex; align-items:center; gap:.6rem;">
+                                        <span class="pt-navbar__avatar" style="width:32px;height:32px;font-size:.8rem;">@ri</span>
+                                        <strong>@row.Name</strong>
+                                    </div>
+                                </td>
+                                <td>@row.Email</td>
+                                <td>
+                                    @if (row.Role == "Admin")
+                                    {
+                                        <span class="pt-pill is-info">Admin</span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="pt-pill">@row.Role</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (row.Active)
+                                    {
+                                        <span class="pt-pill is-success">Active</span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="pt-pill is-warning">Disabled</span>
+                                    }
+                                </td>
+                                <td style="text-align:right;">
+                                    <button type="button" class="btn btn-ghost btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">
+                                        @(row.Active ? "Disable" : "Enable")
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Simple tab switcher — no framework needed.
+        (function () {
+            const tabs   = document.querySelectorAll('.pt-user-tabs__item');
+            const panels = document.querySelectorAll('.pt-user-section');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.tab;
+                    tabs.forEach(t => t.classList.toggle('active', t === tab));
+                    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+                });
+            });
+        })();
+    </script>
+}
+
+
+
+@model PortfolioTracker.Web.ViewModels.ProfileViewModel
 
 
 

@@ -24,7 +24,7 @@ namespace PortfolioTracker.Core.Services
             _signInManager = signInManager;
         }
 
-        public async Task<AuthResult> RegisterAsync(string username, string email, string password, string displayName, DateTime dateOfBirth)
+        public async Task<AuthResult> RegisterAsync(string username, string email, string password, string displayName, DateTime dateOfBirth, bool isAdmin)
         {
 
             var user = new ApplicationUser
@@ -50,10 +50,14 @@ namespace PortfolioTracker.Core.Services
                     DisplayName = displayName,
                     DateOfBirth = dateOfBirth
                 };
-
+                if (isAdmin == true)
+                {
+                    var adminResult = await _userManager.AddToRoleAsync(user, "Admin");
+                }
                 await _context.UserBio.AddAsync(bio);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
+                
             }
             catch
             {

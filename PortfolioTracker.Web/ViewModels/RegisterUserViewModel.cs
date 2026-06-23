@@ -19,7 +19,7 @@ namespace PortfolioTracker.Web.ViewModels
 
         public required DateTime DateOfBirth { get; set; }
 
-        public string Admin { get; set; } = "default";
+        public bool Admin { get; set; } = false;
 
     }
 }

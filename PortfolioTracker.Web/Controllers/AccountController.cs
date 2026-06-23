@@ -50,7 +50,7 @@ namespace PortfolioTracker.Web.Controllers
             if (!ModelState.IsValid)
                 return View("Registration", model);
 
-            var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password, model.DisplayName, model.DateOfBirth);
+            var result = await _userService.RegisterAsync(model.Username, model.Email, model.Password, model.DisplayName, model.DateOfBirth, model.Admin);
 
             if (!result.Succeeded)
             {
