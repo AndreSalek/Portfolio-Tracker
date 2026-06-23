@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BackendLibrary
+namespace PortfolioTracker.Core.Models.Common
 {
     public class PlatformBalances : IPlatformBalances
     {

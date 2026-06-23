@@ -1,4 +1,3 @@
-using BackendLibrary;
 using Frontend.Common;
 using Frontend.Data;
 using Frontend.Data.Models;
@@ -11,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using PortfolioTracker.Core.Configuration;
 using PortfolioTracker.Core.Interfaces;
 using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Models.Common;
 using PortfolioTracker.Core.Services;
 
 namespace Frontend

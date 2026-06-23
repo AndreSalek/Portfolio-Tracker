@@ -1,4 +1,4 @@
-﻿using BackendLibrary;
+﻿using PortfolioTracker.Core.Models.Common;
 
 namespace PortfolioTrackerTests
 {

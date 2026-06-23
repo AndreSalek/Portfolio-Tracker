@@ -1,8 +1,8 @@
-﻿using BackendLibrary;
-using Frontend.Data;
+﻿using Frontend.Data;
 using Frontend.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PortfolioTracker.Core.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;

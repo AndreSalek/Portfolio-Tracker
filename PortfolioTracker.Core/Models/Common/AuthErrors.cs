@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PortfolioTracker.Core.Models
+namespace PortfolioTracker.Core.Models.Common
 {
     public static class AuthErrors
     {

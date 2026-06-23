@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using PortfolioTracker.Core.Data;
+using PortfolioTracker.Core.Models.Common;
 
 namespace PortfolioTracker.Core.Services
 {
@@ -27,6 +28,7 @@ namespace PortfolioTracker.Core.Services
 
         public async Task<AuthResult> RegisterAsync(string username, string email, string password, string displayName, DateTime dateOfBirth)
         {
+
             var user = new ApplicationUser
             {
                 UserName = username,
@@ -91,7 +93,52 @@ namespace PortfolioTracker.Core.Services
 
             return UserBioResult.Success(userBio);
         }
+        public async Task<UpdateUserResult> UpdateUserBioDataAsync(string userId, string username, string email, string displayName)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (!string.IsNullOrEmpty(username))
+            {
+                user.UserName = username;
+            }
+            if (!string.IsNullOrEmpty(email))
+            {
+                user.Email = email;
+            }
+            
+
+
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                
+                var result = await _userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    var errors = result.Errors.Select(e => e.Description);
+                    return UpdateUserResult.Failure(errors);
+                }
+                await _signInManager.RefreshSignInAsync(user);
+                var userBio = await _context.UserBio.FirstOrDefaultAsync(b => b.UserId == userId);
+                if (!string.IsNullOrEmpty(displayName))
+                {
+                    userBio.DisplayName = displayName;
+                }
+                _context.UserBio.Update(userBio);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+
+            return UpdateUserResult.Success();
+        }
     }
+        
 
 }
     

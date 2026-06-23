@@ -3,13 +3,9 @@
 namespace PortfolioTracker.Web.ViewModels
 {
     public class ProfileViewModel
-    {
-
-        [Required]
-        public required string Username { get; set; }
-
-        [Required]
-        public required string Email { get; set; }
+    {   
+        public  string? Username { get; set; }
+        public  string? Email { get; set; }
         
         public  string? DisplayName { get; set; }
         

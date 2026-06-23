@@ -1,6 +1,6 @@
-﻿using BackendLibrary;
-using Frontend.Common;
+﻿using Frontend.Common;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using PortfolioTracker.Core.Models.Common;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
