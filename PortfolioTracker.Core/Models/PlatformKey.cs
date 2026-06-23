@@ -1,3 +1,5 @@
+using PortfolioTracker.Core.Models.Common;
+
 ﻿namespace PortfolioTracker.Core.Models
 {
     public class PlatformKey

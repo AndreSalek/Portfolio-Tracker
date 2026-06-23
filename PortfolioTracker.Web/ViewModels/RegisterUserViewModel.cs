@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PortfolioTracker.Core;
-using PortfolioTracker.Core.Infrastructure;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
 
 namespace PortfolioTracker.Web.ViewModels
 {
@@ -13,10 +8,18 @@ namespace PortfolioTracker.Web.ViewModels
         public required string Username { get; set; }
 
         [Required]
+        [EmailAddress]
         public required string Email { get; set; }
 
         [Required]
+        [MinLength(8)]
         public required string Password { get; set; }
+
+        public required string DisplayName { get; set; }
+
+        public required DateTime DateOfBirth { get; set; }
+
+        public string Admin { get; set; } = "default";
 
     }
 }

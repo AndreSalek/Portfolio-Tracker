@@ -52,8 +52,8 @@
             <span>Add Key</span>
         </a>
 
-        <a class="pt-sidebar__link @ActiveClass("Account", "Profile")"
-           asp-controller="Account" asp-action="Profile">
+        <a class="pt-sidebar__link @ActiveClass("UserManagement", "Profile")"
+               asp-controller="UserManagement" asp-action="Profile">
             <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
             </svg>
@@ -69,7 +69,7 @@
             <span>Privacy</span>
         </a>
 
-        <form asp-controller="Account" asp-action="Logout" method="get" class="m-0">
+        <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
             <button type="submit" class="pt-sidebar__link" style="width:100%; border:0; background:transparent; cursor:pointer;">
                 <svg class="pt-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>

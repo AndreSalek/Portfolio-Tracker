@@ -6,6 +6,7 @@ using PortfolioTracker.Core.Data;
 using PortfolioTracker.Core.Data.Seed;
 using PortfolioTracker.Core.Infrastructure;
 using PortfolioTracker.Core.Models;
+using PortfolioTracker.Core.Models.Common;
 using PortfolioTracker.Core.Services;
 using PortfolioTracker.Web.ViewModels;
 
@@ -29,14 +30,21 @@ namespace PortfolioTracker.Web
             
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));  
+                options.UseNpgsql(connectionString));
 
             // TODO: Change RequireConfirmedAccount after full register and login implementation
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Lockout.MaxFailedAccessAttempts = 5;  
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15); 
+                options.Lockout.AllowedForNewUsers = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            
 
-            services.AddSingleton<Dictionary<Platform, string[]>>(platformKeyMap);
+        services.AddSingleton<Dictionary<Platform, string[]>>(platformKeyMap);
             services.AddScoped<KrakenHttpHandler>();
             services.AddValidation();
 
@@ -50,6 +58,9 @@ namespace PortfolioTracker.Web
             services.Configure<EmailSettings>(
             builder.Configuration.GetSection("Email"));
             services.AddScoped<EmailService>();
+
+            services.AddScoped<IUserService, UserService>();
+
 
             var app = builder.Build();
 
@@ -72,6 +83,8 @@ namespace PortfolioTracker.Web
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
             // AI temporary?? maybe

@@ -27,39 +27,44 @@ input[type="number"],
 input[type="search"],
 textarea,
 select {
-  display: block;
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  background: $color-bg-surface;
-  color: $color-text-primary;
-  font-family: $font-family-sans;
-  font-size: $font-size-sm;
-  line-height: 1.4;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
-  transition: border-color $transition-fast, box-shadow $transition-fast, background $transition-fast;
+    display: block;
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    background: $color-bg-surface;
+    color: $color-text-primary;
+    font-family: $font-family-sans;
+    font-size: $font-size-sm;
+    line-height: 1.4;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    transition: border-color $transition-fast, box-shadow $transition-fast, background $transition-fast;
 
-  &::placeholder { color: $color-text-muted; }
+    &::placeholder {
+        color: $color-text-secondary;
+    }
 
-  &:hover { border-color: $color-border-strong; }
+    &:hover {
+        border-color: $color-border-strong;
+    }
 
-  &:focus,
-  &:focus-visible {
-    outline: none;
-    border-color: $color-brand-500;
-    background: color.adjust($color-bg-surface, $lightness: 2%);
-    box-shadow: 0 0 0 3px rgba($color-brand-500, 0.25);
-  }
+    &:focus,
+    &:focus-visible {
+        outline: none;
+        border-color: $color-brand-500;
+        background: color.adjust($color-bg-surface, $lightness: 2%);
+        box-shadow: 0 0 0 3px rgba($color-brand-500, 0.25);
+        color: $color-text-primary;
+    }
 
-  &:disabled, &[readonly] {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+    &:disabled, &[readonly] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 
-  &.is-invalid {
-    border-color: $color-danger;
-    box-shadow: 0 0 0 3px rgba($color-danger, 0.18);
-  }
+    &.is-invalid {
+        border-color: $color-danger;
+        box-shadow: 0 0 0 3px rgba($color-danger, 0.18);
+    }
 }
 
 textarea {
@@ -69,28 +74,29 @@ textarea {
 
 // Form-floating overrides for dark theme
 .form-floating {
-  position: relative;
+    position: relative;
 
-  > .form-control {
-    height: auto;
-    padding: 1.3rem 0.85rem 0.5rem;
-  }
+    > .form-control {
+        height: auto;
+        padding: 1.3rem 0.85rem 0.5rem;
+    }
 
-  > label {
-    position: absolute;
-    top: 0; left: 0;
-    padding: 0.65rem 0.85rem;
-    color: $color-text-muted;
-    pointer-events: none;
-    transition: transform $transition-fast, color $transition-fast, font-size $transition-fast;
-    transform-origin: 0 0;
-  }
+    > label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0.65rem 0.85rem;
+        color: $color-text-muted;
+        pointer-events: none;
+        transition: transform $transition-fast, color $transition-fast, font-size $transition-fast;
+        transform-origin: 0 0;
+    }
 
-  > .form-control:focus ~ label,
-  > .form-control:not(:placeholder-shown) ~ label {
-    transform: translateY(-0.4rem) scale(0.78);
-    color: $color-brand-400;
-  }
+    > .form-control:focus ~ label,
+    > .form-control:not(:placeholder-shown) ~ label {
+        transform: translateY(-0.4rem) scale(0.78);
+        color: $color-brand-400;
+    }
 }
 
 // Checkbox / radio

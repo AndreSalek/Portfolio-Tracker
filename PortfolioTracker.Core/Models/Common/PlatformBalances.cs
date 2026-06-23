@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PortfolioTracker.Core
-{
+namespace PortfolioTracker.Core.Models.Common 
+{ 
     public class PlatformBalances : IPlatformBalances
     {
         public Platform Platform { get; set; }

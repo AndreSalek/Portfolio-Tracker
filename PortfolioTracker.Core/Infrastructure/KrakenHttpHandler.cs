@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PortfolioTracker.Core.Data;
 using PortfolioTracker.Core.Models;

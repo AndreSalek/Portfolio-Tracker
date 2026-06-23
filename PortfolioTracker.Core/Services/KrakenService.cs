@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioTracker.Core.Data;
 using PortfolioTracker.Core.Interfaces;
 using System;

@@ -4,7 +4,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace PortfolioTracker.Core
+
+namespace PortfolioTracker.Core.Models.Common
 {
     public class PlatformRequestSigner
     {

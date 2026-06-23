@@ -46,11 +46,11 @@ namespace PortfolioTracker.Core.Services
             try
             {
                 var message = BuildConfirmationMailMessage(toEmail, confirmationLink);
-                //await SendMessageAsync(message);
+                await SendMessageAsync(message);
             }
             catch (SmtpCommandException ex)
             {
-                // log + throw nebo vlastní exception
+                
                 throw new EmailSendException($"Failed to send email to {toEmail}", ex);
             }
         }
